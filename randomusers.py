@@ -736,7 +736,12 @@ def get_oldest_user(data: dict) -> dict:
     Returns:
         dict: Dictionary containing 'name', 'age', and 'email' of the oldest user.
     """
-    pass
+    oldest_user = max(data['results'], key= lambda x: x['dob']['age'])
+    return {
+        'name': oldest_user['name']['first'] + " " + oldest_user['name']['last'],
+        'age': oldest_user['dob']['age'],
+        'email': oldest_user['email']
+    }
 
 
 def find_users_in_timezone(data: dict, offset: str) -> list[dict]:
@@ -787,4 +792,4 @@ def run_functions() -> None:
 
 run_functions()
 
-count_users_by_gender(randomuser_data)
+get_registered_before_year(randomuser_data, 2010)
